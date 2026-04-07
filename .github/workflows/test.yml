@@ -1,0 +1,43 @@
+# automatisation (github actions)
+name: BOOTSTRAP JEUX VIDEOPS
+
+# trigger : a quel moment lusine se met en marche
+# on push : quand il recoit un nouveau push sur github
+on:
+  push:
+  # permet de lancer lusine sans push
+  workflow_dispatch:
+
+# liste les automatisations
+jobs:
+  code-verification:
+    # precise a github que cest une version ubuntu
+    runs-on: ubuntu-latest
+
+    # etape d automatisation
+    steps: 
+      # envoie le code local sur le projet hébergé par github
+      - name: Checkout
+        uses: actions/checkout@v3
+
+        # install de node js (version 16 pour le jeu space invaders)
+      - name: Install Node.js v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # install des dépendances
+      - name: Install Dependencies
+        run: npm install
+
+      # message
+      - name: Message Github
+        run: echo "Hello Github Actions!"
+
+      # liste les ﬁchiers contenus dans le repo
+      - name: Files List
+        run: ls -R
+
+      # test compilation 
+      - name: compilation
+        run: npm run build
