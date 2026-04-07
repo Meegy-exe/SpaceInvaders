@@ -30,6 +30,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+        # vulnérabilité DevSecOps
+      - name: Security Audit
+        # npm audit: scanner natif a node js, compare a une liste de failles
+        # --audit: filtre qui sert a ignorer les alertes mineures mais bloque sil y a des erreurs plus fortes
+        run: npm audit --audit-level=moderate
+
       # message
       - name: Message Github
         run: echo "Hello Github Actions!"
